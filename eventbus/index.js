@@ -11,10 +11,11 @@ app.use(express.json());
 app.post('/events', async(req, res) => {
     const event = req.body;
 
-    // put code in here to publish the data to all services (to posts, comments, query)
-    // ....
-
-
+    axios.post('http://localhost:4000/events', event); //this is the post service
+    axios.post('http://localhost:4001/events', event); //this is the comment service
+    axios.post('http://localhost:4002/events', event); //this is the query service
+    res.send({status: 'ok event rec. and forwarded'});
+    console.log("post request on event bus rec.")
 });
 app.get('/events', (req, res) => {
   console.log(events);
