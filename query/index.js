@@ -24,15 +24,14 @@ app.post('/events', (req,res)=> {
     const {type, data} = req.body;
 
     if (type === 'PostCreated') {
-
-        // put code here to get the id and tile info out from data and put it into your data structure posts
-         
+        const {id, title} = data;
+        posts[id] ={id, title, comments: []}; 
     }
     if (type === 'CommentCreated') {
         const {id, content, postId} = data;
 
-        // put code here to get the id and content and postId your data structure posts
-        
+        const post = posts[postId];
+        post.comments.push({id, content});
     }
     console.log(posts);
     res.send({});
