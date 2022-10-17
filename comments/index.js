@@ -42,7 +42,15 @@ app.post('/posts/:id/comments', async(req, res) => {
     
 
     // hs002 new for event bus implementation
-    // put new code here
+    await axios.post('http://localhost:4005/events', {
+        type: 'CommentCreated',
+        data: {
+            id: commentId,
+            content,
+            postId: req.params.id
+        }
+    });
+    res.status(201).send(comments);
 });
 
 // hs002 new for event bus implementation
