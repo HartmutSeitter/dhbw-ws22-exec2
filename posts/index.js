@@ -35,7 +35,13 @@ app.post('/posts',  async(req, res) =>{
     console.log("http post/posts request received", posts[id]);
     
     // hs002 new for event bus implementation
-    // ... put new code here
+    await axios.post('http://localhost:4005/events', {
+        type: 'PostCreated',
+        data: { 
+            id,
+            title
+        } 
+    });
 
     // 001 return status 201 to client and the data itself
     res.status(201).send(posts[id]);
